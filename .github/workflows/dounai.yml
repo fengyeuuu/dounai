@@ -26,10 +26,10 @@ jobs:
 
       - name: Run check-in script
         env:
-          EMAIL: ${{ secrets.EMAIL }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          FROM_ADDRESS: ${{ secrets.FROM_ADDRESS }}
-          ADDRESS_PASSWORD: ${{ secrets.ADDRESS_PASSWORD }}
-          RECEIVER_ADDRESS: ${{ secrets.RECEIVER_ADDRESS }}
+          EMAIL: ${{ secrets.EMAIL }} # 豆奶登录账号
+          PASSWORD: ${{ secrets.PASSWORD }} # 豆奶登录密码
+          FROM_ADDRESS: ${{ secrets.FROM_ADDRESS }} # 发件人邮件
+          ADDRESS_PASSWORD: ${{ secrets.ADDRESS_PASSWORD }} # 发件人邮箱授权码
+          RECEIVER_ADDRESS: ${{ secrets.RECEIVER_ADDRESS }} # 接收邮箱
         run: |
           python checkin.py
