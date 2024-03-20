@@ -3,6 +3,7 @@ name: Daily Check-in
 on:
   schedule:
     - cron: '0 0 * * *' # 每天 UTC 0:00 执行一次
+  workflow_dispatch: # 添加了 workflow_dispatch 触发器，使得手动触发时也会执行
 
 jobs:
   check-in:
