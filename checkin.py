@@ -36,29 +36,23 @@ headers = {
 meg=''
 
 # 获取COOKIE值
-cookie_value = os.environ.get('COOKIE', '')
+cookie_jar = requests.Session().post('https://dounai.pro/auth/login', headers=headers, data=data).cookies
+cookies = requests.utils.dict_from_cookiejar(cookie_jar)
 
-# 构造cookies字典
-cookies = {
-    'uid': '47626',
-    'email': email,
-    'key': 'e9b4f99261591097cfac0a077e779943e93fcbd216cb6',
-    'ip': '24aaa01d437793da4127792612d8db44',
-    'expire_in': '1668306694',
-    'cookie': cookie_value
-}
+
 
 panel = requests.get('https://dounai.pro/user/panel', cookies=cookies, headers=headers)
-checkin = requests.post('https://dounai.pro/user/checkin', cookies=cookies, headers=headers)
+checkin = requests.post('https://dounai.pro/user/checkin', cookies=cookies,headers=headers)
+
 
 soup = BeautifulSoup(panel.text, 'html.parser')
-s = soup.find_all('div', class_='card-inner margin-bottom-no')
+s = soup.find_all('div',class_='card-inner margin-bottom-no')
 
 tmp = re.findall(r'<code>(.*?)</code>', str(s[0]))
 
 meg += '等级0过期时间：' + tmp[6] + '\n'
 meg += '签到：' + checkin.text.encode().decode("unicode_escape")
-print(meg)
+
 
 # 邮件基本信息
 smtp_server = "smtp.qq.com"
