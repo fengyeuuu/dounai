@@ -2,7 +2,7 @@ name: Daily Check-in
 
 on:
   schedule:
-    - cron: '1 0 * * *' 
+    - cron: '0 23 * * *' 
   workflow_dispatch: # 添加了 workflow_dispatch 触发器，使得手动触发时也会执行
 
 jobs:
