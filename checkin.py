@@ -6,7 +6,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 from bs4 import BeautifulSoup
 
-# 从 Secrets 中获取敏感信息
+
 email = os.environ.get('EMAIL')
 password = os.environ.get('PASSWORD')
 email_password = os.environ.get('ADDRESS_PASSWORD')
@@ -33,7 +33,6 @@ headers = {
     'upgrade-insecure-requests': '1',
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.37',
 }
-meg=''
 
 # 获取COOKIE值
 cookie_jar = requests.Session().post('https://dounai.pro/auth/login', headers=headers, data=data).cookies
@@ -45,13 +44,8 @@ panel = requests.get('https://dounai.pro/user/panel', cookies=cookies, headers=h
 checkin = requests.post('https://dounai.pro/user/checkin', cookies=cookies,headers=headers)
 
 
-soup = BeautifulSoup(panel.text, 'html.parser')
-s = soup.find_all('div',class_='card-inner margin-bottom-no')
 
-tmp = re.findall(r'<code>(.*?)</code>', str(s[0]))
-print(tmp.size())
-meg += '等级0过期时间：' + tmp[6] + '\n'
-meg += '签到：' + checkin.text.encode().decode("unicode_escape")
+meg = '签到：' + checkin.text.encode().decode("unicode_escape")
 
 
 # 邮件基本信息
