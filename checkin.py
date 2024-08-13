@@ -49,7 +49,7 @@ soup = BeautifulSoup(panel.text, 'html.parser')
 s = soup.find_all('div',class_='card-inner margin-bottom-no')
 
 tmp = re.findall(r'<code>(.*?)</code>', str(s[0]))
-
+print(tmp.size())
 meg += '等级0过期时间：' + tmp[6] + '\n'
 meg += '签到：' + checkin.text.encode().decode("unicode_escape")
 
