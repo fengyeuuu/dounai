@@ -9,10 +9,6 @@ from bs4 import BeautifulSoup
 
 email = os.environ.get('EMAIL')
 password = os.environ.get('PASSWORD')
-email_password = os.environ.get('ADDRESS_PASSWORD')
-from_address = os.environ.get('FROM_ADDRESS')
-receiver_address = os.environ.get('RECEIVER_ADDRESS')
-
 data = {
     'email': email,
     'passwd': password,
@@ -46,20 +42,3 @@ checkin = requests.post('https://dounai.pro/user/checkin', cookies=cookies,heade
 
 
 meg = '签到：' + checkin.text.encode().decode("unicode_escape")
-
-
-# 邮件基本信息
-smtp_server = "smtp.qq.com"
-smtp_port = 465
-
-# 邮件构造
-message = MIMEText(meg, "plain", "utf-8")
-message["From"] = Header(from_address)
-message["To"] = Header(receiver_address, "utf-8")
-message["Subject"] = Header("来自豆豆豆奶的签到信息", "utf-8")
-
-# 发送邮件
-smtpObject = smtplib.SMTP_SSL(smtp_server, smtp_port)
-smtpObject.login(from_address, email_password)
-smtpObject.sendmail(from_address, [receiver_address], message.as_string())
-smtpObject.quit()
